@@ -1,10 +1,5 @@
 pipeline {
-  agent {
-    docker {
-      image 'docker:latest'
-      args '-v /var/run/docker.sock:/var/run/docker.sock'
-    }
-  }
+  agent any
 
   stages {
     stage('Build Docker Image') {
@@ -13,9 +8,10 @@ pipeline {
         sh 'docker build -t jayajenkins/app .'
       }
     }
+
     stage('Run Container') {
       steps {
-        echo 'Running container...'
+        echo 'Running Docker container...'
         sh 'docker run -d -p 3000:3000 jayajenkins/app'
       }
     }
