@@ -4,15 +4,15 @@ pipeline {
     stages {
         stage('Build Docker Image') {
             steps {
-                script {
-                    docker.build("jayajenkins/app")
-                }
+                echo 'Building Docker image...'
+                sh 'docker build -t jayajenkins/app .'
             }
         }
 
         stage('Run Container') {
             steps {
-                sh 'docker run -d -p 3000:3000 jayajenkins/app'
+                echo 'Running container...'
+                sh 'docker run -d -p 8081:3000 jayajenkins/app'
             }
         }
     }
